@@ -2,36 +2,119 @@ import React, { useState, useEffect } from 'react';
 import { LEVELS } from '../../models/levels.enum'
 import TaskComponent from '../pure/task'
 import { Task } from '../../models/task.class'
+import TaskForm from '../pure/forms/taskForm';
+import TaskFormik from '../pure/forms/taskFormik';
 
 
 const TaskListComponent = () => {
-    const defaultTask = new Task('Example', 'Default description', false, LEVELS.NORMAL);
+    const defaultTask1 = new Task('Example', 'Description 1', true, LEVELS.NORMAL);
+    const defaultTask2 = new Task('Example', 'Description 2', false, LEVELS.URGENT);
+    const defaultTask3 = new Task('Example', 'Description 3', true, LEVELS.BLOCKING);
 
     //Estado del componente
-    const [tasks, setTasks] = useState([defaultTask]);
+    const [tasks, setTasks] = useState([defaultTask1, defaultTask2, defaultTask3]);
     const [loading, setLoading] = useState(true);
 
     // Control del ciclo de vida del componente
     useEffect(() => {
         console.log('Task State has been modified');
-        setLoading(false);
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000)
+
         return () => {
-            console.log('TaskList component is going to unmount...'); 
+            console.log('TaskList component is going to unmount...');
         }
     }, [tasks])
 
 
 
-    const changeCompleted = (id) => {
-        console.log('TODO: Cambiar estado de una tarea')
+    function completeTask(task) {
+        console.log(`Complete this task ${task}`)
+        const index = tasks.indexOf(task);
+        const temporalTasks = [...tasks];
+        temporalTasks[index].completed = !temporalTasks[index].completed;
+        setTasks(temporalTasks);
+    }
+
+    function deleteTask(task) {
+        console.log(`Delete this task ${task}`)
+        const index = tasks.indexOf(task);
+        const temporalTasks = [...tasks]
+        temporalTasks.splice(index, 1);
+        setTasks(temporalTasks)
+
+
+    }
+
+    function addTask(task) {
+        console.log(`Add this task ${task}`)
+        const temporalTasks = [...tasks]
+        temporalTasks.push(task);
+        setTasks(temporalTasks)
+
+    }
+
+    const Table = () => {
+        return (
+            <table>
+                <thead>
+                    <tr>
+                        <th scope='col'>Title</th>
+                        <th scope='col'>Description</th>
+                        <th scope='col'>Priority</th>
+                        <th scope='col'>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {tasks.map((task, index) => {
+                        return <TaskComponent key={index} task={task} complete={completeTask} remove={deleteTask}></TaskComponent>
+                    })}
+
+                </tbody>
+            </table>
+        )
+    }
+
+    let tableTask
+
+    if (tasks.length > 0) {
+        tableTask = <Table></Table>
+    } else {
+        tableTask = (
+            <div>
+                <h3> There are no tasks to show</h3>
+                <h4>Please, create one</h4>
+            </div>
+        )
+
     }
 
 
     return (
-        <div>
-            <h1>Your Tasks:</h1>
-            {/* TODO: Aplicar un For/Map para renderizar un a lista */}
-            <TaskComponent task={defaultTask}></TaskComponent>
+        <div className='col-12'>
+            <div className='card'>
+                <div className='card-header p-3'>
+                    <h5>Your Tasks:</h5>
+                </div>
+
+                <div className='card-body' data-mdb-perfect-scrollbar='true' style={{ position: 'relative', height: '350px' }} >
+                    {/* {tasks.length > 0 ? <Table></Table> :
+                        <div>
+                         <h4>There are not task to show</h4>
+                         <p>Please, create one</p>
+                        </div>} */}
+                    {loading ? <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div> : tableTask}
+
+                </div>
+
+            </div>
+            {/* <TaskForm add={addTask} lenght={tasks.length}></TaskForm> */}
+            <TaskFormik add={addTask} lenght={tasks.length}></TaskFormik>
         </div>
     );
 };

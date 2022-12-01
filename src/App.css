@@ -40,3 +40,13 @@
 h1{
   color: tomato;
 }
+
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
+  /* padding-bottom: 1rem; */
+  background-color: gray;
+}

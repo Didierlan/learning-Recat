@@ -1,4 +1,11 @@
-.task-name {
-    font-weight: bold;
-    color: blueviolet;
+.task-action {
+    cursor: pointer;
+}
+
+.task-completed {
+    background: tomato;
+}
+
+.task-notCompleted {
+    background: palevioletred;
 }
