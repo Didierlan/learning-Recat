@@ -9,11 +9,21 @@ const LoginPage = () => {
     const goTasks = () => {
         history.push('/tasks')
     }
+    
+
+    const goBack = () => {
+        history.goBack()
+    }
+
     return (
         <div>
             <h1> Login page</h1>
             <LoginFormik></LoginFormik>
             <Button variant="contained" onClick={goTasks}>tasks</Button>
+            <Button variant="contained" onClick={goBack}>Go to back</Button>
+
+
+
         </div>
     );
 }

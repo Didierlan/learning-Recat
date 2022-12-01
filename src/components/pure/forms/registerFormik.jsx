@@ -4,8 +4,21 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as yup from 'yup'
 import { ROLES } from '../../../models/roles.enum';
 
-const RegisterFormik = ({lol}) => {
+import Button from '@mui/material/Button';
+
+import { useHistory } from 'react-router-dom';
+
+const RegisterFormik = () => {
     let user = new User();
+
+    const history = useHistory(); 
+    const goTasks = () => {
+        history.push('/login')
+    }
+
+    const goBack = () => {
+        history.goBack()
+    }
 
     const initialValues = {
         username: '',
@@ -136,7 +149,8 @@ const RegisterFormik = ({lol}) => {
 
             </Formik>
 
-
+            <Button variant="contained" onClick={goTasks}>Login</Button>
+            <Button variant="contained" onClick={goBack}>Go to back</Button>
         </div>
     );
 }
