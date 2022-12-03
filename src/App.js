@@ -7,6 +7,11 @@ import GreetingStyles from './components/pure/greetingStyles';
 import Father from './components/container/father';
 import LoginFormik from './components/pure/forms/loginFormik';
 import RegisterFormik from './components/pure/forms/registerFormik';
+import AsyncExample from './components/pure/asyncExample';
+import ObservableExample from './components/pure/observableExample';
+import FetchEmample from './components/pure/fetchEmample';
+import AxiosExample from './components/pure/axiosExample';
+import AxiosChucknorris from './components/pure/axiosChucknorris';
 
 
 function App() {
@@ -16,13 +21,18 @@ function App() {
       {/* <img src={logo} className="App-logo" alt="logo" /> */}
       {/* <Greeting name="Didier"></Greeting> */}
       {/* <GreetingF name="Didier"></GreetingF> */}
-      {/* <TaskListComponent></TaskListComponent> */}
       {/* <GreetingStyles name= "Didier"></GreetingStyles> */}
       {/* </header> */}
       {/* <Father></Father> */}
-      <TaskListComponent></TaskListComponent>
+      {/* <TaskListComponent></TaskListComponent> */}
       {/* <LoginFormik></LoginFormik> */}
       {/* <RegisterFormik></RegisterFormik> */}
+
+      {/* <AsyncExample></AsyncExample> */}
+      {/* <ObservableExample></ObservableExample> */}
+      {/* <FetchEmample></FetchEmample> */}
+      {/* <AxiosExample></AxiosExample> */}
+      <AxiosChucknorris></AxiosChucknorris>
     </div>
   );
 }
